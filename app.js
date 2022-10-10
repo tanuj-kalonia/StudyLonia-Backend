@@ -35,10 +35,11 @@ export default app;
 
 
 // for heroku
+const frontend = process.env.FRONT_END_URL || "http://localhost:3000"
 app.get("/", (req, res) => {
     res.send(`
    <h1>
-        Site is working. Click <a href=${process.nextTick.FRONT_END_URL}>here</a> to visit frontend.
+        Site is working. Click <a href=${frontend}>here</a> to visit frontend.
    </h1>`)
 })
 
