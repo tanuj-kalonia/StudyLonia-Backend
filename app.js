@@ -3,7 +3,6 @@ import { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import ErrorMiddleware from "./middlewares/Error.js"
 import cors from "cors";
-
 config({ path: "./config/config.env" })
 const app = express();
 
