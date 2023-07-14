@@ -36,16 +36,6 @@ app.use("/api/v1", other);
 
 export default app;
 
-
-// for heroku
-const frontend = process.env.FRONT_END_URL || "http://localhost:3000"
-app.get("/", (req, res) => {
-    res.send(`
-   <h1>
-        Site is working. Click <a href=${frontend}>here</a> to visit frontend.
-   </h1>`)
-})
-
 // using error middlewares
 // if no middlewares that are used above are not able to 
 // solve the error, then errorMiddleware will be used.

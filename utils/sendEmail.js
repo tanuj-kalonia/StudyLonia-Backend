@@ -1,14 +1,17 @@
-import { createTransport } from "nodemailer";
+import { mailSender } from "../config/email-config.js"
 
-export const sendEmail = async (to, subject, text) => {
-    const transporter = createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS
-        }
-    });
-
-    await transporter.sendMail({ to, subject, text })
+export async function sendEmail(mailTo, mailSubject, mailText) {
+    try {
+        const mailFrom = 'studylonia@gmail.com'
+        const response = await mailSender.sendMail({
+            from: mailFrom,
+            to: mailTo,
+            subject: mailSubject,
+            text: mailText
+        });
+        return response;
+    } catch (error) {
+        console.log("Could not send mail", error);
+    }
 }
+

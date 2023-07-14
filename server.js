@@ -1,12 +1,15 @@
+import dotenv from "dotenv";
+dotenv.config({ path: ".config/config.env" })
+
 import app from "./app.js";
-import "./config/database.js";
-import User from "./models/User.js";
-import Course from "./models/Course.js";
+import { connectDB } from "./config/database.js";
 import Stats from "./models/Stats.js";
 import cloudinary from "cloudinary";
 import RazorPay from "razorpay"
 import nodeCron from "node-cron";
 
+
+connectDB();
 
 const PORT = process.env.PORT;
 
@@ -32,7 +35,7 @@ nodeCron.schedule("0 0 0 1 * *", async () => {
     console.log(error);
   }
 })
-
-app.listen(PORT || 3333, () => {
+app.listen(PORT || 3333, async () => {
   console.log(`server is up at port ${PORT}`);
+
 })

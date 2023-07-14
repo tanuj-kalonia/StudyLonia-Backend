@@ -10,7 +10,8 @@ export const contact = catchAsyncError(async (req, res, next) => {
     if (!name || !email || !message)
         return next(new ErrorHandler("All fields are required"), 401);
 
-    const to = process.env.MY_MAIL;
+    const to = process.env.GMAIL_USER;
+    console.log(to);
     const subject = "Contact from studylonia";
     const text = `I am ${name} and my email is ${email}. \n${message}`;
 
@@ -20,6 +21,7 @@ export const contact = catchAsyncError(async (req, res, next) => {
         success: true,
         message: "Your message has been sent successfully",
     })
+
 })
 export const requestCourse = catchAsyncError(async (req, res, next) => {
     const { name, email, course } = req.body;
@@ -27,12 +29,26 @@ export const requestCourse = catchAsyncError(async (req, res, next) => {
     if (!name || !email || !course)
         return next(new ErrorHandler("All fields are required"), 401);
 
-    const to = process.env.MY_MAIL;
+    const to = process.env.GMAIL_USER;
+    console.log(to);
     const subject = "Requesting for a course on studylonia";
     const text = `I am "${name}" and my email is "${email}". \nI want "${course}" course to be on stduylonia`;
 
     await sendEmail(to, subject, text);
 
+    // send repsone to user
+    const resText = `
+Thankyou for your request
+We have recieved your request.
+If we recieve a lot of request on the same subject,
+then we will create this course faster than a cheetah.
+
+Your Request for : ${course}
+
+Thankyou
+- Studylonia
+    `
+    await sendEmail(email, subject, resText)
     res.status(201).json({
         success: true,
         message: "Your message has been sent successfully",

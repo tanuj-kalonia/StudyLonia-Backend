@@ -11,9 +11,9 @@ router.route("/subscribe").get(isAuthenticated, buySubscription)
 router.route("/paymentverification").post(isAuthenticated, paymentVerification)
 
 // GET RAZORPAY KEY
-router.route("/razorpaykey").get(isAuthenticated, getRazorPayKey)
+router.route("/razorpaykey").get(getRazorPayKey)
 
 // cancel subscription
-router.route("/razorpaykey").get(isAuthenticated, cancelSubscription)
+router.route("/subscribe/cancel").get(isAuthenticated, cancelSubscription)
 
 export default router;

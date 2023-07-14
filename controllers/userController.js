@@ -13,12 +13,11 @@ export const register = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
 
     const file = req.file;
-    const fileUri = getDataUri(file);
-    const mycloud = cloudinary.v2.uploader.upload(fileUri.content);
-
     if (!name || !email || !password || !file) {
         return next(new ErrorHandler("Please fill all the fields", 400))
     }
+    const fileUri = getDataUri(file);
+    const mycloud = cloudinary.v2.uploader.upload(fileUri.content);
 
     let user = await User.findOne({ email });
     if (user) return next(new ErrorHandler("User already exists", 509));
@@ -32,7 +31,6 @@ export const register = catchAsyncError(async (req, res, next) => {
         }
     })
     sendToken(res, user, "Registered successfully", 201);
-
 })
 
 
@@ -52,7 +50,7 @@ export const login = catchAsyncError(async (req, res, next) => {
     const isMatch = await user.comparePassword(password);
     if (!isMatch) return next(new ErrorHandler("Incorrect Email or Password", 401));
 
-    sendToken(res, user, `Welcome back ${user.name}`, 201);
+    sendToken(res, user, `Welcome back ${user.name}`, 200);
 
 })
 
@@ -60,8 +58,8 @@ export const logout = catchAsyncError(async (req, res, next) => {
     res.status(201).cookie("token", null, {
         expires: new Date(Date.now()),
         httpOnly: true,
-        sameSite: "none",
         secure: true,
+        sameSite: "none",
 
     }).json({
         success: true,
@@ -103,7 +101,8 @@ export const changePassword = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler("Please fill all the fields", 400))
     }
 
-    const isMatch = await user.comparePassword(oldPassword); if (!isMatch) return next(new ErrorHandler("Incorrect old password"));
+    const isMatch = await user.comparePassword(oldPassword);
+    if (!isMatch) return next(new ErrorHandler("Incorrect old password"));
 
     user.password = newPassword;
     await user.save();

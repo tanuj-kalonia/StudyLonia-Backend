@@ -17,7 +17,7 @@ import {
     deleteMyProfile
 } from "../controllers/userController.js";
 import singleUpload from "../middlewares/multer.js";
-import { authorizeAdmin, isAuthenticated } from "../middlewares/auth.js";
+import { isAuthenticated, authorizeAdmin } from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -61,7 +61,7 @@ router.route("/removefromplaylist").delete(isAuthenticated, removeFromPlaylist);
 // Admin Controllers
 
 // Gets all the user
-router.route("/admin/allusers").get(isAuthenticated, authorizeAdmin, getAllUsers);
+router.route("/admin/users").get(isAuthenticated, authorizeAdmin, getAllUsers);
 
 // Updates the user role
 router.route("/admin/user/:id")
