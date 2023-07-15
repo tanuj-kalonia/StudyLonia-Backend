@@ -35,6 +35,7 @@ nodeCron.schedule("0 0 0 1 * *", async () => {
     console.log(error);
   }
 })
+
 app.listen(PORT || 3333, async () => {
   console.log(`server is up at port ${PORT}`);
 

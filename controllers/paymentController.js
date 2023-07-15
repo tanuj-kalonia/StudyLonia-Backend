@@ -4,6 +4,7 @@ import Payment from "../models/payment.js"
 import { instance } from "../server.js";
 import ErrorHandler from "../utils/erorrHandler.js";
 import crypt from "crypto";
+import { sendEmail } from "../utils/sendEmail.js"
 
 export const buySubscription = async (req, res, next) => {
     try {
@@ -110,6 +111,29 @@ export const cancelSubscription = catchAsyncError(async (req, res, next) => {
     if (refund) message = "Subscription cancelled, You will receive full refund within 7 days."
     else message = "Subscription cancelled, Now refund initiated as subscription was cancelled after 7 days.";
 
+
+    let mailTo = user.email;
+    let mailSubject = "Cancelation Request Initiated"
+
+    let mailText;
+    if (refund) mailText = `
+Your request for cancelling the pro membership has been succesfully completed.
+Your refund has been inititated and will be refunded in 2-3 working days.
+
+Thankyou
+Team - Studylonia
+
+`
+    else mailText = `
+Your request for cancelling the pro membership has been succesfully completed.
+As you have crossed the 7 days limit. There fore no Refund will be initiated at our end.;
+
+Thankyou
+Team - Studylonia
+
+`
+
+    sendEmail(mailTo, mailSubject, mailText);
     console.log("subs removed and saved");
     return res.status(200).json({
         success: true,
