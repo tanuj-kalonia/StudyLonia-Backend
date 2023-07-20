@@ -12,12 +12,12 @@ Please relode the page or go to https://studylonia.netlify.app/ again
 3. User can request a course
 4. User can contact the admin
 5. On profile Page
-- Change the Display Image
-- Change password
-- Update Profile
-- Subscribe to Premium course (use `success@razorpay` if using upi for payment)
-- Cancel Subscription
-- Watch lectures after buying subscription
+  - Change the Display Image
+  - Change password
+  - Update Profile
+  - Subscribe to Premium course (use `success@razorpay` if using upi for payment)
+  - Cancel Subscription
+  - Watch lectures after buying subscription
 
 6. Admin Controls
 - Dashboard
