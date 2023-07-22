@@ -2,10 +2,10 @@
 Live at : https://studylonia.netlify.app/
 
 ```
-If It says page not found on reloade in the production.
+If It says page not found on reloading the page,
 Please relode the page or go to https://studylonia.netlify.app/ again
 
-It will page not found on the payment success page I am using a test account from razorpay
+It will show page not found on the payment success page I am using a test account from razorpay
 Just login again and you will be subscribed to the premium content
 
 ```
